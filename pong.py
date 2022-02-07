@@ -160,10 +160,10 @@ def main():
         # score updates
         score_board.update(score1, score2)
         screen.blit(score_board.text, score_board.t_rect)
-        if score1 == 2:
+        if score1 == 12:
             Winner = f"{player1}"
             GAME_OVER = True
-        elif score2 == 2:
+        elif score2 == 12:
             Winner = f"{player2}"
             GAME_OVER = True
         # fps 60
