@@ -57,17 +57,21 @@ class Ball(pygame.sprite.Sprite):
         self.rect.top = SCREEN_HEIGHT/2
 
 # Player class
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, type) -> None:
         super().__init__()
         self.type = type
         if(type == 1):
-            self.image = pygame.image.load(os.path.abspath("./static/player1_small.png"))
+            self.image = pygame.image.load(
+                os.path.abspath("./static/player1_small.png"))
             self.rect = self.image.get_rect()
             self.rect.x = 0
             self.rect.y = SCREEN_HEIGHT/2
         else:
-            self.image = pygame.image.load(os.path.abspath("./static/player2_small.png"))
+            self.image = pygame.image.load(
+                os.path.abspath("./static/player2_small.png"))
             self.rect = self.image.get_rect()
             self.rect.x = SCREEN_WIDTH - self.rect.size[0]
             self.rect.y = SCREEN_HEIGHT/2
@@ -91,20 +95,22 @@ class Player(pygame.sprite.Sprite):
 
 
 class ScroeBoard():
- def __init__(self) -> None:
+    def __init__(self) -> None:
         self.font = pygame.font.Font("freesansbold.ttf", 24)
         self.text = self.font.render(f"P1:{0} vs P2:{0}", True, WHITE)
         self.t_rect = self.text.get_rect()
         self.t_rect.center = (SCREEN_WIDTH/2, 20)
 
- def update(self, score1: int, score2: int) -> None:
-        self.text = self.font.render(f"P1:{score1} vs P2:{score2}", True, WHITE)
+    def update(self, score1: int, score2: int) -> None:
+        self.text = self.font.render(
+            f"P1:{score1} vs P2:{score2}", True, WHITE)
 
 
 def main():
     # setups
     screen = pygame.display.set_mode(SCREEN_SIZE)
     active_sprite_list = pygame.sprite.Group()
+    pygame.display.set_caption("Pong by Jalil")
 
     # fonts
     score_board = ScroeBoard()
@@ -179,7 +185,8 @@ def main():
                 if event.key == pygame.K_r:
                     return main()  # restart
         screen.fill(BLACK)
-        game_over_text = game_over_font.render(f"                     Game Over! {Winner} is winner(press r restart)", True, WHITE)
+        game_over_text = game_over_font.render(
+            f"                     Game Over! {Winner} is winner(press r restart)", True, WHITE)
         game_over_rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         screen.blit(game_over_text, game_over_rect)
         pygame.display.flip()
