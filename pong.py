@@ -30,23 +30,20 @@ class Ball(pygame.sprite.Sprite):
         self.rect.top = SCREEN_HEIGHT/2
         self.player1 = player1
         self.player2 = player2
-        self.acceleration = 1
 
     def update(self) -> None:
         global score1, score2
         if self.rect.left < 0:
             score2 += 1
             self.reset()
-            self.acceleration += 1
         elif self.rect.right > SCREEN_WIDTH:
             score1 += 1
             self.reset()
-            self.acceleration += 1
         elif self.rect.top < 0 or self.rect.bottom > SCREEN_HEIGHT:
             self.dy = self.dy * -1
-            self.acceleration += 1
         elif(pygame.sprite.collide_rect(self.player1, self) or pygame.sprite.collide_rect(self, self.player2)):
             self.dx = self.dx * -1
+            self.dy = self.dy * 1
 
     def begin_move(self) -> None:
         self.rect.x += self.dx
@@ -61,10 +58,6 @@ class Ball(pygame.sprite.Sprite):
         self.dy = 4
         self.rect.left = SCREEN_WIDTH/2
         self.rect.top = SCREEN_HEIGHT/2
-
-    def increase_speed(self):
-        self.dx += 0.02
-        self.dy += 0.02
 
 
 # Player class
@@ -122,7 +115,6 @@ def main():
     screen = pygame.display.set_mode(SCREEN_SIZE)
     active_sprite_list = pygame.sprite.Group()
     pygame.display.set_caption("Pong by Jalil")
-    speed_increase_range = [25, 50, 100]
 
     # fonts
     score_board = ScroeBoard()
@@ -184,10 +176,6 @@ def main():
         elif score2 == 12:
             Winner = f"{player2}"
             GAME_OVER = True
-
-        # increasing speed
-        if pong.acceleration in speed_increase_range:
-            pong.increase_speed()
 
         # fps 60
         clock.tick(60)
